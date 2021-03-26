@@ -3,9 +3,9 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from '@nestjs/mongoose';
+import { TokenModule } from './token/token.module';
 
 const environment = process.env.NODE_ENV || 'development';
-
 @Module({
   imports: [
     UserModule,
@@ -23,6 +23,8 @@ const environment = process.env.NODE_ENV || 'development';
         useUnifiedTopology: true
       }
     ),
+
+    TokenModule,
   ],
 })
 export class AppModule {}
