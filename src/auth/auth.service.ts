@@ -14,7 +14,7 @@ export class AuthService {
     private readonly tokenService: TokenService,
   ) { }
 
-  signUp(createUserDto: CreateUserDto): boolean {
+  signUp(createUserDto: CreateUserDto) {
     return true
   }
 
