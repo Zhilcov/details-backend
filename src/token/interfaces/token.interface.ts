@@ -1,7 +1,7 @@
 import {Document} from "mongoose";
 
 export interface IToken extends Document {
-  token: string;
-  uId: string;
-  expireAt: Date;
+  readonly token: string;
+  readonly uId: string;
+  readonly expireAt: Date;
 }

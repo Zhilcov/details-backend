@@ -1,21 +1,17 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from "@nestjs/config";
+
 import { MongooseModule } from '@nestjs/mongoose';
 import { TokenModule } from './token/token.module';
+import {configModule} from "./config/config.module";
 
-const environment = process.env.NODE_ENV || 'development';
+
 @Module({
   imports: [
     UserModule,
     AuthModule,
-
-    ConfigModule.forRoot({
-      envFilePath: `.env.${environment}`,
-      isGlobal: true,
-    }),
-
+    configModule,
     MongooseModule.forRoot(
       process.env.MONGODB_WRITE_CONNECTION_STRING,
       {
@@ -23,7 +19,6 @@ const environment = process.env.NODE_ENV || 'development';
         useUnifiedTopology: true
       }
     ),
-
     TokenModule,
   ],
 })

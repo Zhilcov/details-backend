@@ -40,7 +40,7 @@ export class AuthService {
     }
   }
 
-  private async saveToken(createUserTokenDto: CreateUserTokenDto) {
+  private async saveToken(createUserTokenDto: TokenDto) {
     const userToken = await this.tokenService.create(createUserTokenDto);
 
     return userToken;
