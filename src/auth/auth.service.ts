@@ -5,6 +5,12 @@ import { TokenService } from 'src/token/token.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { SignOptions } from 'jsonwebtoken';
 import { TokenDto } from 'src/token/dto/token.dto';
+import {SignInDto} from "./dto/signin.dto";
+import {ReadableUserInterface} from "../user/interfaces/readable-user.interface";
+import bcrypt from 'bcrypt';
+import {TokenPayload} from "./interfaces/token-payload.interface";
+import moment from 'moment';
+import {UserSensitiveFieldsEnum} from "../user/enums/userSensitiveFieldsEnum";
 
 @Injectable()
 export class AuthService {
@@ -18,11 +24,40 @@ export class AuthService {
     return true
   }
 
-  signIn(email, password) {
+  async signIn({email, password}: SignInDto): Promise<ReadableUserInterface> {
+    const user = await this.userService.findByEmail(email);
 
+    if (user && bcrypt.compare(password, user.password)) {
+      const tokenPayload: TokenPayload = {
+        _id: user.id
+      }
+
+      const token = await this.generateToken(tokenPayload);
+      const expireAt = moment()
+        .add(1, 'day')
+        .toISOString();
+
+      await this.saveToken({
+        token,
+        expireAt,
+        uId: user._id,
+      });
+
+      const readableUser = user.toObject() as ReadableUserInterface;
+      readableUser.accessToken = token;
+
+
+      for(let i in UserSensitiveFieldsEnum) {
+        if (readableUser.hasOwnProperty(i)) {
+          delete readableUser[i]
+        }
+      }
+
+      return readableUser;
+    }
   }
 
-  private async generateToken(data, options?: SignOptions) : Promise<string>{
+  private async generateToken(data: TokenPayload, options?: SignOptions) : Promise<string>{
     return this.jwtService.sign(data, options);
   }
 

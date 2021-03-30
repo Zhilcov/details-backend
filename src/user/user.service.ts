@@ -25,4 +25,10 @@ export class UserService {
   async find(id: string): Promise<IUser> {
     return await this.userModel.findById(id).exec();
   }
+
+  async findByEmail(email: string): Promise<IUser> {
+    return await this.userModel.findOne({
+      email: email
+    }).exec();
+  }
 }

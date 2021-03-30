@@ -2,6 +2,8 @@ import {Body, Controller, Post, ValidationPipe} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger'
 import {AuthService} from "./auth.service";
 import {CreateUserDto} from "../user/dto/create-user.dto";
+import {ReadableUserInterface} from "../user/interfaces/readable-user.interface";
+import {SignInDto} from "./dto/signin.dto";
 
 @ApiTags('auth')
 @Controller('auth')
@@ -15,7 +17,7 @@ export class AuthController {
   }
 
   @Post('/signIn')
-  async signIn() {
-    // return this.authService.signIn(createUserDto);
+  async signIn(@Body(new ValidationPipe()) signInDto: SignInDto): Promise<ReadableUserInterface> {
+    return this.authService.signIn(signInDto);
   }
 }
