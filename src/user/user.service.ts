@@ -13,12 +13,12 @@ export class UserService {
     console.log(this.userModel);
   }
 
-  async create(createUserDto: CreateUserDto, roles: Array<string>): Promise<IUser> {
+  async create(createUserDto: CreateUserDto): Promise<IUser> {
     const saltRounds = 10;
     const salt = await bcrypt.genSalt(saltRounds);
     const hash = await bcrypt.hash(createUserDto.password, salt);
 
-    const createdUser = new this.userModel(_.assignIn(createUserDto, { password: hash, roles }));
+    const createdUser = new this.userModel(_.assignIn(createUserDto, { password: hash }));
     return await createdUser.save();
   }
 

@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TokenModule } from './token/token.module';
 import {configModule} from "./config/config.module";
+import {SeedsModule} from "./db/seed.module";
 
 
 @Module({
@@ -20,6 +21,7 @@ import {configModule} from "./config/config.module";
       }
     ),
     TokenModule,
+    SeedsModule,
   ],
 })
 export class AppModule {}

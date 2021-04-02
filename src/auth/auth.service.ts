@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {Injectable, NotFoundException, UnauthorizedException} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { TokenService } from 'src/token/token.service';
@@ -55,6 +55,7 @@ export class AuthService {
 
       return readableUser;
     }
+    throw new NotFoundException('user not found')
   }
 
   private async generateToken(data: TokenPayload, options?: SignOptions) : Promise<string>{
