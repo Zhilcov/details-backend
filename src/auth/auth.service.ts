@@ -24,8 +24,8 @@ export class AuthService {
     return true
   }
 
-  async signIn({email, password}: SignInDto): Promise<ReadableUserInterface> {
-    const user = await this.userService.findByEmail(email);
+  async signIn({login, password}: SignInDto): Promise<ReadableUserInterface> {
+    const user = await this.userService.findByEmail(login);
 
     if (user && bcrypt.compare(password, user.password)) {
       const tokenPayload: TokenPayload = {
