@@ -17,7 +17,7 @@ export class AuthController {
   }
 
   @Post('/signIn')
-  async signIn(@Body(new ValidationPipe()) signInDto: SignInDto): Promise<ReadableUserInterface> {
+  async signIn(@Body(ValidationPipe) signInDto: SignInDto): Promise<ReadableUserInterface> {
     return this.authService.signIn(signInDto);
   }
 }

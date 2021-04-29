@@ -26,9 +26,9 @@ export class UserService {
     return await this.userModel.findById(id).exec();
   }
 
-  async findByEmail(email: string): Promise<IUser> {
+  async findByLogin(login: string): Promise<IUser> {
     return await this.userModel.findOne({
-      email: email
+      login: login
     }).exec();
   }
 }

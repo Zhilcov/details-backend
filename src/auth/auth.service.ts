@@ -7,9 +7,9 @@ import { SignOptions } from 'jsonwebtoken';
 import { TokenDto } from 'src/token/dto/token.dto';
 import {SignInDto} from "./dto/signin.dto";
 import {ReadableUserInterface} from "../user/interfaces/readable-user.interface";
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import {TokenPayload} from "./interfaces/token-payload.interface";
-import moment from 'moment';
+import * as moment from 'moment';
 import {UserSensitiveFieldsEnum} from "../user/enums/userSensitiveFieldsEnum";
 
 @Injectable()
@@ -25,12 +25,12 @@ export class AuthService {
   }
 
   async signIn({login, password}: SignInDto): Promise<ReadableUserInterface> {
-    const user = await this.userService.findByEmail(login);
-
+    const user = await this.userService.findByLogin(login);
+    console.log(user);
     if (user && bcrypt.compare(password, user.password)) {
       const tokenPayload: TokenPayload = {
         _id: user.id
-      }
+      };
 
       const token = await this.generateToken(tokenPayload);
       const expireAt = moment()
@@ -45,6 +45,7 @@ export class AuthService {
 
       const readableUser = user.toObject() as ReadableUserInterface;
       readableUser.accessToken = token;
+      readableUser.id = user.id;
 
 
       for(let i in UserSensitiveFieldsEnum) {
@@ -55,7 +56,7 @@ export class AuthService {
 
       return readableUser;
     }
-    throw new NotFoundException('user not found')
+    throw new NotFoundException('Пользователь не найден')
   }
 
   private async generateToken(data: TokenPayload, options?: SignOptions) : Promise<string>{

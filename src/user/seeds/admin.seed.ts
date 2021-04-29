@@ -11,8 +11,8 @@ export class AdminSeeder {
   @Command({ command: 'create:admin', describe: 'create a admin', autoExit: true })
   async create() {
     const user = await this.userService.create({
-      login: 'admin',
-      password: 'Admin123!'
+      login: 'a',
+      password: '123456'
     });
     console.log(user);
   }
