@@ -7,8 +7,9 @@ import { AuthModule } from './auth/auth.module';
 import { TokenModule } from './token/token.module';
 import {configModule} from "./config/config.module";
 import {SeedsModule} from "./db/seed.module";
-import {User} from "./user/user.entity";
-import {Token} from "./token/token.entity";
+import { CarModule } from './car/car.module';
+import { DetailController } from './detail/detail.controller';
+import { DetailModule } from './detail/detail.module';
 
 
 @Module({
@@ -20,7 +21,7 @@ import {Token} from "./token/token.entity";
       type: 'mongodb',
       url: process.env.MONGODB_WRITE_CONNECTION_STRING,
       entities: [
-        User, Token
+        __dirname + '/**/*.entity{.ts,.js}',
       ],
       synchronize: true,
       ssl: true,
@@ -36,6 +37,9 @@ import {Token} from "./token/token.entity";
     // ),
     TokenModule,
     SeedsModule,
+    CarModule,
+    DetailModule,
   ],
+  controllers: [DetailController],
 })
 export class AppModule {}
