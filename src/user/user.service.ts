@@ -1,34 +1,37 @@
 import { Injectable } from '@nestjs/common';
-import {InjectModel} from "@nestjs/mongoose";
-import {Model} from "mongoose";
+import { InjectRepository } from '@nestjs/typeorm';
+import {MongoRepository} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import * as _ from 'lodash';
 
-import {IUser} from "./interfaces/user.interface";
 import {CreateUserDto} from "./dto/create-user.dto";
+import {User} from "./user.entity";
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel('User') private readonly userModel: Model<IUser>) {
-    console.log(this.userModel);
-  }
+  constructor(
+    @InjectRepository(User)
+    private readonly usersRepository: MongoRepository<User>
+  ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<IUser> {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const saltRounds = 10;
     const salt = await bcrypt.genSalt(saltRounds);
     const hash = await bcrypt.hash(createUserDto.password, salt);
 
-    const createdUser = new this.userModel(_.assignIn(createUserDto, { password: hash }));
-    return await createdUser.save();
+    const createdUser = new User(_.assignIn(createUserDto, { password: hash }));
+
+    return await this.usersRepository.create(createdUser);
   }
 
-  async find(id: string): Promise<IUser> {
-    return await this.userModel.findById(id).exec();
+  async find(id: string): Promise<User> {
+    return await this.usersRepository.findOne(id);
   }
 
-  async findByLogin(login: string): Promise<IUser> {
-    return await this.userModel.findOne({
+  async findByLogin(login: string): Promise<User> {
+    console.log('login', login);
+    return await this.usersRepository.findOne({
       login: login
-    }).exec();
+    });
   }
 }

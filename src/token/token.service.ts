@@ -1,28 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import {InjectModel} from "@nestjs/mongoose";
-import {Model} from "mongoose";
-import {IToken} from "./interfaces/token.interface";
-import {TokenDto} from "./dto/token.dto";
+import {InjectRepository} from "@nestjs/typeorm";
+import {Token} from "./token.entity";
+import {MongoRepository, ObjectID} from "typeorm";
 
 
 @Injectable()
 export class TokenService {
-  constructor(@InjectModel('Token') private readonly tokenModel: Model<IToken>) { }
+  constructor(
+    @InjectRepository(Token)
+    private tokenRepository: MongoRepository<Token>,
+  ){}
 
-  async create(createUserTokenDto: TokenDto): Promise<IToken> {
-    const userToken = new this.tokenModel(createUserTokenDto);
-    return await userToken.save()
+  async create(createUserTokenDto: Token): Promise<Token> {
+
+    const userToken = new Token(createUserTokenDto);
+    return await this.tokenRepository.create(userToken);
   }
 
-  async delete(uId: string, token: string): Promise<{ ok?: number, n?: number }> {
-    return await this.tokenModel.deleteOne({ uId, token })
-  }
-
-  async deleteAll(uId: string): Promise<{ ok?: number, n?: number }> {
-    return await this.tokenModel.deleteMany({ uId });
-  }
-
+  // async delete(uId: string, token: string): Promise<{ ok?: number, n?: number }> {
+  //   return await this.tokenModel.deleteOne({ uId, token })
+  // }
+  //
+  // async deleteAll(uId: string): Promise<{ ok?: number, n?: number }> {
+  //   return await this.tokenModel.deleteMany({ uId });
+  // }
+  //
   async exists(uId: string, token: string): Promise<boolean> {
-    return await this.tokenModel.exists({ uId, token });
+    return await !!this.tokenRepository.findOne({
+      uId: ObjectID.createFromHexString(uId),
+      token: token,
+    });
   }
 }

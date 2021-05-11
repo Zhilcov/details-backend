@@ -1,5 +1,5 @@
-import {IUser} from "./user.interface";
+import {User} from "../user.entity";
 
-export interface ReadableUserInterface extends IUser{
+export interface ReadableUserInterface extends User{
   accessToken?: string;
 }

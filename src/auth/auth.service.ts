@@ -6,11 +6,12 @@ import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { SignOptions } from 'jsonwebtoken';
 import { TokenDto } from 'src/token/dto/token.dto';
 import {SignInDto} from "./dto/signin.dto";
-import {ReadableUserInterface} from "../user/interfaces/readable-user.interface";
 import * as bcrypt from 'bcrypt';
 import {TokenPayload} from "./interfaces/token-payload.interface";
 import * as moment from 'moment';
 import {UserSensitiveFieldsEnum} from "../user/enums/userSensitiveFieldsEnum";
+import {ReadableUserInterface} from "../user/interfaces/readable-user.interface";
+import {Token} from "../token/token.entity";
 
 @Injectable()
 export class AuthService {
@@ -26,10 +27,9 @@ export class AuthService {
 
   async signIn({login, password}: SignInDto): Promise<ReadableUserInterface> {
     const user = await this.userService.findByLogin(login);
-    console.log(user);
-    if (user && bcrypt.compare(password, user.password)) {
+    if (user && await bcrypt.compare(password, user.password)) {
       const tokenPayload: TokenPayload = {
-        _id: user.id
+        _id: user.id.toString()
       };
 
       const token = await this.generateToken(tokenPayload);
@@ -40,13 +40,11 @@ export class AuthService {
       await this.saveToken({
         token,
         expireAt,
-        uId: user._id,
+        uId: user.id,
       });
 
-      const readableUser = user.toObject() as ReadableUserInterface;
+      const readableUser = {...user} as ReadableUserInterface;
       readableUser.accessToken = token;
-      readableUser.id = user.id;
-
 
       for(let i in UserSensitiveFieldsEnum) {
         if (readableUser.hasOwnProperty(i)) {
@@ -56,7 +54,7 @@ export class AuthService {
 
       return readableUser;
     }
-    throw new NotFoundException('Пользователь не найден')
+    throw new NotFoundException('Неверный логин или пароль')
   }
 
   private async generateToken(data: TokenPayload, options?: SignOptions) : Promise<string>{
@@ -77,7 +75,7 @@ export class AuthService {
     }
   }
 
-  private async saveToken(createUserTokenDto: TokenDto) {
+  private async saveToken(createUserTokenDto: Token) {
     const userToken = await this.tokenService.create(createUserTokenDto);
 
     return userToken;

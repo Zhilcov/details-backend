@@ -1,3 +1,3 @@
 export enum UserSensitiveFieldsEnum {
-  PASSWORD = 'password'
+  password
 }
