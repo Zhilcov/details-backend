@@ -37,11 +37,11 @@ export class AuthService {
         .add(1, 'day')
         .toISOString();
 
-      await this.saveToken({
-        token,
-        expireAt,
-        uId: user.id,
-      });
+      // await this.saveToken({
+      //   token,
+      //   expireAt,
+      //   uId: user.id,
+      // });
 
       const readableUser = {...user} as ReadableUserInterface;
       readableUser.accessToken = token;

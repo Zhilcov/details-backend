@@ -14,7 +14,7 @@ export class TokenService {
   async create(createUserTokenDto: Token): Promise<Token> {
 
     const userToken = new Token(createUserTokenDto);
-    return await this.tokenRepository.create(userToken);
+    return await this.tokenRepository.save(userToken);
   }
 
   // async delete(uId: string, token: string): Promise<{ ok?: number, n?: number }> {
@@ -26,9 +26,10 @@ export class TokenService {
   // }
   //
   async exists(uId: string, token: string): Promise<boolean> {
-    return await !!this.tokenRepository.findOne({
-      uId: ObjectID.createFromHexString(uId),
-      token: token,
-    });
+    // return await !!this.tokenRepository.findOne({
+    //   user: uId,
+    //   token: token,
+    // });
+    return true;
   }
 }

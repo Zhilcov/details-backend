@@ -17,10 +17,11 @@ export class CarService {
 
   async createCarModel(carModel: CarModelDto): Promise<CarModel> {
     const model = new CarModel({
-      name: carModel.name
+      name: carModel.name,
+      brandId: carModel.brandId,
     });
 
-    return await this.carModelRepository.create(model);
+    return await this.carModelRepository.save(model);
   }
 
   async createCarBrand(carBrand: CarBrandDto): Promise<CarBrand> {
@@ -28,7 +29,7 @@ export class CarService {
       name: carBrand.name
     });
 
-    return await this.carBrandRepository.create(brand);
+    return await this.carBrandRepository.save(brand);
   }
 
 }

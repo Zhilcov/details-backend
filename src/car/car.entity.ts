@@ -1,4 +1,4 @@
-import {Entity, ObjectID, ObjectIdColumn, Column, OneToOne} from "typeorm";
+import {Entity, ObjectID, ObjectIdColumn, Column, OneToOne, PrimaryGeneratedColumn, JoinColumn} from "typeorm";
 import {CarFuelTypes} from "./enums/carFuelType";
 import {CarBodyTypes} from "./enums/carBodyTypes";
 import {TransmissionTypes} from "./enums/transmissionTypes";
@@ -7,8 +7,7 @@ import {CarBrand} from "./car-brand.entity";
 
 @Entity('cars')
 export class Car{
-  @ObjectIdColumn()
-  id: ObjectID;
+  @PrimaryGeneratedColumn() id: string;
 
   @Column()
   year: Date;
@@ -17,9 +16,11 @@ export class Car{
   engineVolume: number;
 
   @OneToOne(() => CarBrand)
+  @JoinColumn({name: 'carBrandId'})
   carBrand: CarBrand;
 
   @OneToOne(() => CarModel)
+  @JoinColumn({name: 'carModelId'})
   carModel: CarModel;
 
   @Column()

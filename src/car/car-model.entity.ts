@@ -1,13 +1,20 @@
-import {Entity, ObjectID, ObjectIdColumn, Column, PrimaryGeneratedColumn} from "typeorm";
+import {Entity, ObjectID, ObjectIdColumn, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn} from "typeorm";
+import {CarBrand} from "./car-brand.entity";
 
-@Entity('car-models')
+@Entity('car_models')
 export class CarModel {
 
-  @ObjectIdColumn()
-  id: ObjectID;
+  @PrimaryGeneratedColumn() id: string;
 
-  @Column()
+  @Column({nullable: false})
   name: string;
+
+  @Column({nullable: false})
+  brandId: string;
+
+  @ManyToOne(() => CarBrand, (carBrand: CarBrand) => carBrand.models)
+  @JoinColumn({name: 'brandId'})
+  brand: CarBrand;
 
   constructor(pet?: Partial<CarModel>) {
     Object.assign(this, pet);

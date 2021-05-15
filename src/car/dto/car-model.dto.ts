@@ -5,4 +5,8 @@ export class CarModelDto {
   @IsNotEmpty()
   @ApiProperty()
   name: string;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  brandId: string;
 }
