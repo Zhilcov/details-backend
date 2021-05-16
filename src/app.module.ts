@@ -25,7 +25,7 @@ import { DetailModule } from './detail/detail.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [
-        __dirname + '/**/*.entity{.ts,.js}',
+        __dirname + '/**/entities/*.entity{.ts,.js}',
       ],
       synchronize: true,
       logging: true,
@@ -42,6 +42,5 @@ import { DetailModule } from './detail/detail.module';
     CarModule,
     DetailModule,
   ],
-  controllers: [DetailController],
 })
 export class AppModule {}

@@ -1,10 +1,12 @@
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {CarModel} from "../car-model.entity";
+import {CarModel} from "../entities/car-model.entity";
 import {MongoRepository} from "typeorm";
-import {CarBrand} from "../car-brand.entity";
+import {CarBrand} from "../entities/car-brand.entity";
 import {CarModelDto} from "../dto/car-model.dto";
 import {CarBrandDto} from "../dto/car-brand.dto";
+import {CarDto} from "../dto/car-dto";
+import {Car} from "../entities/car.entity";
 
 @Injectable()
 export class CarService {
@@ -30,6 +32,11 @@ export class CarService {
     });
 
     return await this.carBrandRepository.save(brand);
+  }
+
+  async createCar(car: CarDto): Promise<Car> {
+    const newCar = new Car(car);
+    return await this.carBrandRepository.save(newCar);
   }
 
 }

@@ -1,10 +1,12 @@
 import {Body, Controller, Post, ValidationPipe} from '@nestjs/common';
 import {CarService} from "./services/car.service";
 import {CarModelDto} from "./dto/car-model.dto";
-import {CarModel} from "./car-model.entity";
+import {CarModel} from "./entities/car-model.entity";
 import {ApiTags} from "@nestjs/swagger";
 import {CarBrandDto} from "./dto/car-brand.dto";
-import {CarBrand} from "./car-brand.entity";
+import {CarBrand} from "./entities/car-brand.entity";
+import {CarDto} from "./dto/car-dto";
+import {Car} from "./entities/car.entity";
 
 @ApiTags('carModule')
 @Controller('car')
@@ -22,4 +24,8 @@ export class CarController {
     return this.carService.createCarBrand(brand);
   }
 
+  @Post('create-car')
+  async createCar(@Body(ValidationPipe) req: CarDto): Promise<Car> {
+    return this.carService.createCar(req);
+  }
 }

@@ -1,5 +1,5 @@
 import {Entity, ObjectID, ObjectIdColumn, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
-import {Token} from "../token/token.entity";
+import {Token} from "../../token/entities/token.entity";
 
 @Entity({name: 'users'})
 export class User {

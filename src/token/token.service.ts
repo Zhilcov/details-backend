@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
-import {Token} from "./token.entity";
+import {Token} from "./entities/token.entity";
 import {MongoRepository, ObjectID} from "typeorm";
 
 

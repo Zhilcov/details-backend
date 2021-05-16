@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { CarController } from './car.controller';
 import {CarService} from "./services/car.service";
 import {TypeOrmModule} from "@nestjs/typeorm";
-import {CarBrand} from "./car-brand.entity";
-import {CarModel} from "./car-model.entity";
+import {CarBrand} from "./entities/car-brand.entity";
+import {CarModel} from "./entities/car-model.entity";
 
 @Module({
   imports: [

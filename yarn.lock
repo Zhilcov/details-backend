@@ -4716,6 +4716,11 @@ nestjs-command@^2.0.0:
     lodash.compact "^3.0.1"
     lodash.flattendeep "^4.4.0"
 
+nestjs-typeorm-paginate@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/nestjs-typeorm-paginate/-/nestjs-typeorm-paginate-2.4.1.tgz#76c235e9c20bf0696491792722385b3f0918e4bb"
+  integrity sha512-rxBgjt8fv14rjtloqP/tnYUs6SyY8h+YHyQ9LQPp2W13fWWOO66H35gWbeqwgLX2ydGK4srcYI7A1/NCXHVVrQ==
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

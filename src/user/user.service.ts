@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 import * as _ from 'lodash';
 
 import {CreateUserDto} from "./dto/create-user.dto";
-import {User} from "./user.entity";
+import {User} from "./entities/user.entity";
 
 @Injectable()
 export class UserService {

@@ -11,7 +11,7 @@ import {TokenPayload} from "./interfaces/token-payload.interface";
 import * as moment from 'moment';
 import {UserSensitiveFieldsEnum} from "../user/enums/userSensitiveFieldsEnum";
 import {ReadableUserInterface} from "../user/interfaces/readable-user.interface";
-import {Token} from "../token/token.entity";
+import {Token} from "../token/entities/token.entity";
 
 @Injectable()
 export class AuthService {
