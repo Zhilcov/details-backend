@@ -1,13 +1,12 @@
 import {Module} from "@nestjs/common";
-import {CommandModule} from "nestjs-command";
-import {AdminSeeder} from "../user/seeds/admin.seed";
-import {UserService} from "../user/user.service";
+import {UserSeedModule} from "../user/seeds/user.seed.module";
+import {CarSeedModule} from "../car/seeds/car.seed.module";
+import {DetailsSeedModule} from "../detail/seeds/details.seed.module";
 
 
-// @Module({
-//   imports: [CommandModule],
-//   providers: [AdminSeeder, UserService],
-// })
+@Module({
+  imports: [UserSeedModule, CarSeedModule, DetailsSeedModule],
+})
 export class SeedsModule {
 
 }

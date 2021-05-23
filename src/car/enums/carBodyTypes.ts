@@ -1,14 +1,14 @@
 export enum CarBodyTypes {
-  sedan,
-  hatchback,
-  station_wagon,
-  suv,
-  minivan,
-  coupe,
-  liftback,
-  pickup,
-  cabriolet,
-  van,
-  onboard,
-  tractor
+  sedan = 'Седан',
+  hatchback = 'Хэтчбэк',
+  station_wagon = 'Универсал',
+  suv = 'кроссовер',
+  minivan = 'Минивэн',
+  coupe = 'Купе',
+  liftback = 'Лифтбэк',
+  pickup = 'Пикап',
+  cabriolet = 'Кабриолет',
+  van = 'фурго',
+  onboard = 'Бортовой',
+  tractor = 'Тягач'
 }

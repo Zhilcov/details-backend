@@ -2,6 +2,7 @@ import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGener
 import {DetailVideoAttachEntity} from "./detail-video-attach.entity";
 import {DetailLinkEntity} from "./detail-link.entity";
 import {DetailTypeEntity} from "./detail-type.entity";
+import {CarEntity} from "../../car/entities/car.entity";
 
 @Entity('details')
 export class DetailEntity {
@@ -11,8 +12,16 @@ export class DetailEntity {
   @OneToOne(() => DetailTypeEntity)
   @JoinColumn({name: 'detailTypeId'})
   detailType: DetailTypeEntity;
+  @Column({nullable: false})
+  detailTypeId: string;
 
-  @Column()
+  @ManyToOne(() => CarEntity)
+  @JoinColumn({name: 'carId'})
+  car: CarEntity;
+  @Column({nullable: false})
+  carId: string;
+
+  @Column({nullable: true})
   photoPath: string;
 
   @Column()
@@ -30,4 +39,8 @@ export class DetailEntity {
 
   @OneToMany(() => DetailLinkEntity, link => link.detail)
   links: DetailLinkEntity[];
+
+  constructor(pet?: Partial<DetailEntity>) {
+    Object.assign(this, pet);
+  }
 }

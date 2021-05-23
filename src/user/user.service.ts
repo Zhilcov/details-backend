@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {MongoRepository, Repository} from 'typeorm';
+import {Repository} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import * as _ from 'lodash';
 

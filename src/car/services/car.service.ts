@@ -1,20 +1,20 @@
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {CarModel} from "../entities/car-model.entity";
-import {MongoRepository} from "typeorm";
+import {MongoRepository, Repository} from "typeorm";
 import {CarBrand} from "../entities/car-brand.entity";
 import {CarModelDto} from "../dto/car-model.dto";
 import {CarBrandDto} from "../dto/car-brand.dto";
 import {CarDto} from "../dto/car-dto";
-import {Car} from "../entities/car.entity";
+import {CarEntity} from "../entities/car.entity";
 
 @Injectable()
 export class CarService {
   constructor(
     @InjectRepository(CarModel)
-    private readonly carModelRepository: MongoRepository<CarModel>,
+    private readonly carModelRepository: Repository<CarModel>,
     @InjectRepository(CarBrand)
-    private readonly carBrandRepository: MongoRepository<CarBrand>,
+    private readonly carBrandRepository: Repository<CarBrand>,
   ) {}
 
   async createCarModel(carModel: CarModelDto): Promise<CarModel> {
@@ -34,8 +34,8 @@ export class CarService {
     return await this.carBrandRepository.save(brand);
   }
 
-  async createCar(car: CarDto): Promise<Car> {
-    const newCar = new Car(car);
+  async createCar(car: CarDto): Promise<CarEntity> {
+    const newCar = new CarEntity(car);
     return await this.carBrandRepository.save(newCar);
   }
 

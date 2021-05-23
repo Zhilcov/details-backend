@@ -1,24 +1,18 @@
 import {
   Entity,
-  ObjectID,
-  ObjectIdColumn,
   Column,
   OneToOne,
   PrimaryGeneratedColumn,
   JoinColumn,
-  ManyToMany, JoinTable
 } from "typeorm";
-import {CarFuelTypes} from "../enums/carFuelType";
-import {CarBodyTypes} from "../enums/carBodyTypes";
-import {TransmissionTypes} from "../enums/transmissionTypes";
 import {CarModel} from "./car-model.entity";
 import {CarBrand} from "./car-brand.entity";
-import {CarFuelType} from "./car-fuel-type.entity";
-import {CarBodyType} from "./car-body-type.entity";
-import {CarTransmissionType} from "./car-transmission-type.entity";
+import {CarFuelTypeEntity} from "./car-fuel-type.entity";
+import {CarBodyTypeEntity} from "./car-body-type.entity";
+import {CarTransmissionTypeEntity} from "./car-transmission-type.entity";
 
 @Entity('cars')
-export class Car {
+export class CarEntity {
   @PrimaryGeneratedColumn() id: string;
 
   @Column()
@@ -35,25 +29,27 @@ export class Car {
   @JoinColumn({name: 'carModelId'})
   carModel: CarModel;
 
-  @OneToOne(() => CarFuelType)
+  @OneToOne(() => CarFuelTypeEntity)
   @JoinColumn({
     name: 'fuelId',
   })
-  fuelType: CarFuelType;
+  fuelType: CarFuelTypeEntity;
 
-  @OneToOne(() => CarBodyType)
+  @OneToOne(() => CarBodyTypeEntity)
   @JoinColumn({
     name: 'bodyTypeId',
   })
-  bodyType: CarBodyType;
+  bodyType: CarBodyTypeEntity;
 
-  @OneToOne(() => CarTransmissionType)
+  @OneToOne(() => CarTransmissionTypeEntity)
   @JoinColumn({
     name: 'transmissionTypeId',
   })
-  carTransmissionType: CarTransmissionType;
+  carTransmissionType: CarTransmissionTypeEntity;
 
-  constructor(pet?: Partial<Car>) {
+
+
+  constructor(pet?: Partial<CarEntity>) {
     Object.assign(this, pet);
   }
 }

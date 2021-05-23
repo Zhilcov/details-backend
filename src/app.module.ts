@@ -30,13 +30,6 @@ import { DetailModule } from './detail/detail.module';
       synchronize: true,
       logging: true,
     }),
-    // MongooseModule.forRoot(
-    //   process.env.MONGODB_WRITE_CONNECTION_STRING,
-    //   {
-    //     useNewUrlParser: true,
-    //     useUnifiedTopology: true
-    //   }
-    // ),
     TokenModule,
     SeedsModule,
     CarModule,

@@ -7,4 +7,8 @@ export class DetailTypeEntity {
 
   @Column()
   name: string;
+
+  constructor(pet?: Partial<DetailTypeEntity>) {
+    Object.assign(this, pet);
+  }
 }

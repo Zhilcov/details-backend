@@ -6,9 +6,9 @@ import {ApiTags} from "@nestjs/swagger";
 import {CarBrandDto} from "./dto/car-brand.dto";
 import {CarBrand} from "./entities/car-brand.entity";
 import {CarDto} from "./dto/car-dto";
-import {Car} from "./entities/car.entity";
+import {CarEntity} from "./entities/car.entity";
 
-@ApiTags('carModule')
+@ApiTags('car')
 @Controller('car')
 export class CarController {
   constructor(private readonly carService: CarService) {
@@ -25,7 +25,7 @@ export class CarController {
   }
 
   @Post('create-car')
-  async createCar(@Body(ValidationPipe) req: CarDto): Promise<Car> {
+  async createCar(@Body(ValidationPipe) req: CarDto): Promise<CarEntity> {
     return this.carService.createCar(req);
   }
 }

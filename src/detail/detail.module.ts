@@ -7,11 +7,11 @@ import {DetailsRepository} from "./repositories/details-repository";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([DetailEntity])
+    TypeOrmModule.forFeature([DetailsRepository])
   ],
   controllers: [DetailController],
   providers: [
-    DetailsService, DetailsRepository
+    DetailsService
   ]
 })
 export class DetailModule {}

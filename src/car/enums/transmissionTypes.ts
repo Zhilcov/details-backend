@@ -1,6 +1,6 @@
 export enum TransmissionTypes {
-  automatic ,
-  mechanical,
-  robot,
-  variator,
+  automatic = 'Автомат',
+  mechanical = 'Механика',
+  robot = 'Робот',
+  variator = 'Вариатор',
 }
