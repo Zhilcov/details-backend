@@ -4,7 +4,7 @@ export class TokenDto {
   @IsString()
   token: string;
   @IsString()
-  uId: string;
+  userId: string;
   @IsDateString()
   expireAt: string;
 }

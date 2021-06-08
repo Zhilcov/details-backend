@@ -20,7 +20,7 @@ export class UserService {
     const hash = await bcrypt.hash(createUserDto.password, salt);
 
     const createdUser = new User(_.assignIn(createUserDto, { password: hash }));
-    console.log(this.usersRepository.metadata, 'meta');
+
     return await this.usersRepository.save(createdUser)
   }
 
@@ -29,7 +29,6 @@ export class UserService {
   }
 
   async findByLogin(login: string): Promise<User> {
-    console.log('login', login);
     return await this.usersRepository.findOne({
       login: login
     });

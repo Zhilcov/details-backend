@@ -1,4 +1,4 @@
-import {Body, Controller, Post, ValidationPipe} from '@nestjs/common';
+import {Body, Controller, Get, Post, ValidationPipe} from '@nestjs/common';
 import {CarService} from "./services/car.service";
 import {CarModelDto} from "./dto/car-model.dto";
 import {CarModel} from "./entities/car-model.entity";
@@ -7,6 +7,7 @@ import {CarBrandDto} from "./dto/car-brand.dto";
 import {CarBrand} from "./entities/car-brand.entity";
 import {CarDto} from "./dto/car-dto";
 import {CarEntity} from "./entities/car.entity";
+import {ListItemInterface} from "../interfaces/list-item-interface";
 
 @ApiTags('car')
 @Controller('car')
@@ -27,5 +28,10 @@ export class CarController {
   @Post('create-car')
   async createCar(@Body(ValidationPipe) req: CarDto): Promise<CarEntity> {
     return this.carService.createCar(req);
+  }
+
+  @Get('get-car-list')
+  async getCarList(): Promise<Array<ListItemInterface>> {
+    return this.carService.getCarBrandsList();
   }
 }

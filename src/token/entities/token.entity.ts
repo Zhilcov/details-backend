@@ -11,6 +11,9 @@ export class Token {
   @ManyToOne(() => User, user => user.tokens)
   user: User;
 
+  @Column({nullable: false})
+  userId: string;
+
   @Column()
   expireAt: string;
 

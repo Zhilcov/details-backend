@@ -7,6 +7,7 @@ import {CarModelDto} from "../dto/car-model.dto";
 import {CarBrandDto} from "../dto/car-brand.dto";
 import {CarDto} from "../dto/car-dto";
 import {CarEntity} from "../entities/car.entity";
+import {ListItemInterface} from "../../interfaces/list-item-interface";
 
 @Injectable()
 export class CarService {
@@ -39,4 +40,15 @@ export class CarService {
     return await this.carBrandRepository.save(newCar);
   }
 
+  async getCarBrandsList(): Promise<Array<ListItemInterface>> {
+     const carBrands = await this.carBrandRepository.find();
+     let list: Array<ListItemInterface> = [];
+     carBrands.forEach(brand => {
+       list.push({
+         label: brand.name,
+         value: brand.id
+       })
+     });
+     return list;
+  }
 }
