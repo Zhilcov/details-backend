@@ -46,9 +46,28 @@ export class CarService {
      carBrands.forEach(brand => {
        list.push({
          label: brand.name,
-         value: brand.id
+         value: brand.id.toString()
        })
      });
      return list;
+  }
+
+  async getCarModels(brandId?: string): Promise<Array<ListItemInterface>> {
+    let list = [];
+    let query = this.carModelRepository.createQueryBuilder();
+
+    if (brandId) {
+      query.where("brandId = :brandId", { brandId: brandId })
+    }
+
+    const carModels = await query.getMany();
+    carModels.forEach(model => {
+      list.push({
+        label: model.name,
+        value: model.id
+      })
+    });
+
+    return list;
   }
 }

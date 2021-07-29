@@ -1,10 +1,14 @@
-import {Entity, ObjectID, ObjectIdColumn, Column, PrimaryGeneratedColumn, OneToMany} from "typeorm";
+import {Entity, ObjectID, ObjectIdColumn, Column, PrimaryGeneratedColumn, OneToMany, Generated} from "typeorm";
 import {CarModel} from "./car-model.entity";
 
 @Entity('car_brands')
 export class CarBrand {
 
   @PrimaryGeneratedColumn() id: string;
+
+  @Column({type:'uuid'})
+  @Generated('uuid')
+  second_id: string;
 
   @Column()
   name: string;
